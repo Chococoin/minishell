@@ -54,7 +54,7 @@
         |
         v
 +----------------+
-|   Parser       |   <-- 🔹 TU
+|   Parser       |   <-- 🔹 Germán
 | - Tokenizza    |
 | - Gestisce     |
 |   quotes       |
@@ -67,7 +67,7 @@
         | comandi strutturati
         v
 +----------------+
-|   Esecutore    |   <-- 🔹 COMPAGNA
+|   Esecutore    |   <-- 🔹 Sihtmi
 | - Controlla se |
 |   è built-in   |
 | - Se built-in: |

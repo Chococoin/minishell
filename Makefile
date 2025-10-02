@@ -6,24 +6,26 @@
 #    By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 18:10:13 by glugo-mu          #+#    #+#              #
-#    Updated: 2025/09/11 19:39:58 by glugo-mu         ###   ########.fr        #
+#    Updated: 2025/10/01 16:20:28 by glugo-mu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = main.c builtins.c
-OBJ = $(SRC:.C=.o)
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJ)
 
-
 clean:
 	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
