@@ -6,14 +6,14 @@
 #    By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 18:10:13 by glugo-mu          #+#    #+#              #
-#    Updated: 2025/10/01 16:20:28 by glugo-mu         ###   ########.fr        #
+#    Updated: 2025/10/02 15:10:16 by glugo-mu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = $(wildcard *.c)
+SRC = main.c utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
