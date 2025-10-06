@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 14:33:32 by glugo-mu          #+#    #+#             */
-/*   Updated: 2025/10/02 16:48:06 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:25:58 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,19 @@ int is_builtin(char *cmd)
 	return (0);
 }
 
-// Mock: imprime qué built-in fue detectado
+// Mock: prints which built-in was detected
 int exec_builtin(char **args)
 {
 	if (!args || !args[0])
 		return (1);
 	if (strcmp(args[0], "echo") == 0)
 	{
-		printf("[MOCK] Built-in echo detectado\n");
+		printf("[MOCK] Built-in echo detected\n");
 		return (0);
 	}
 	if (strcmp(args[0], "env") == 0)
 	{
-		printf("[MOCK] Built-in env detectado\n");
+		printf("[MOCK] Built-in env detected\n");
 		return (0);
 	}
 	return (1);

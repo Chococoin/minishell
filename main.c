@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 18:17:15 by glugo-mu          #+#    #+#             */
-/*   Updated: 2025/10/02 17:02:03 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:25:20 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	// Hardcode envp para debug
+	// Hardcode envp for debugging
 	char *fake_env[] = {
 		"USER=german",
 		"PWD=/Users/german",
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 			if (args && is_builtin(args[0]))
 				exec_builtin(args);
 			else
-				printf("Comando no reconocido (aún): %s\n", input);
+				printf("Command not recognized (yet): %s\n", input);
 			free(args);
 		}
 		free(input);
