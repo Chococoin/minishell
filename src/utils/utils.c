@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 14:33:32 by glugo-mu          #+#    #+#             */
-/*   Updated: 2025/10/08 09:04:48 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/10/08 10:40:52 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strdup(const char *s)
 	int		len;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s);
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ptr)
@@ -62,14 +64,16 @@ char **copy_env(char **envp)
 	char	**my_env;
 	int		i;
 
+	if (!envp) /* comprobación defensiva */
+		return (NULL);
 	count = 0;
-	while(envp[count])
+	while (envp[count])
 		count++;
 	my_env = malloc((count + 1) * sizeof(*my_env));
 	if (!my_env)
 		return (NULL);
 	i = 0;
-	while (i <= count)
+	while (i < count) /* copiar sólo las entradas reales, no el NULL terminal */
 	{
 		my_env[i] = ft_strdup(envp[i]);
 		if (!my_env[i])
@@ -81,7 +85,7 @@ char **copy_env(char **envp)
 		}
 		i++;
 	}
-	my_env[i] = NULL;
+	my_env[count] = NULL;
 	return (my_env);
 }
 
