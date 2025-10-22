@@ -15,8 +15,14 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	char	**args;
+	char	**parts;
 	char	**my_env;
+	char	*original;
+	t_token	*tokens;
+	char	*error;
+	t_cmd	*cmds;
+	char	*cmd_error;
+	t_cmd	*first;
 	int		i;
 
 	(void)argc;
@@ -47,24 +53,74 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			break ;
 		}
-		else if (ft_strcmp(input, "env") == 0)
+		original = ft_strdup(input);
+		if (!original)
 		{
-			i = 0;
-			while (my_env[i])
+			free(input);
+			continue ;
+		}
+		parts = split_input(input);
+		if (!parts)
+		{
+			printf("minishell: unexpected EOF while looking for matching quote\n");
+			free(original);
+			free(input);
+			continue ;
+		}
+		error = NULL;
+		tokens = tokenize(parts, &error);
+		if (!tokens)
+		{
+			if (error)
+				printf("minishell: syntax error near unexpected token `%s'\n",
+					error);
+			free(error);
+			free(parts);
+			free(original);
+			free(input);
+			continue ;
+		}
+		cmd_error = NULL;
+		cmds = commands_from_tokens(tokens, &cmd_error);
+		if (!cmds)
+		{
+			if (cmd_error)
+				printf("minishell: %s\n", cmd_error);
+			free(cmd_error);
+			token_clear(&tokens);
+			free(error);
+			free(parts);
+			free(original);
+			free(input);
+			continue ;
+		}
+		first = cmds;
+		if (first->next)
+			printf("Command pipeline not supported (yet)\n");
+		else if (first->argv && first->argv[0])
+		{
+			if (ft_strcmp(first->argv[0], "env") == 0)
 			{
-				printf("%s\n", my_env[i]);
-				i++;
+				i = 0;
+				while (my_env[i])
+				{
+					printf("%s\n", my_env[i]);
+					i++;
+				}
 			}
+			else if (is_builtin(first->argv[0]))
+				exec_builtin(first->argv);
+			else
+				printf("Command not recognized (yet): %s\n", original);
 		}
 		else
-		{
-			args = split_input(input);
-			if (args && is_builtin(args[0]))
-				exec_builtin(args);
-			else
-				printf("Command not recognized (yet): %s\n", input);
-			free(args);
-		}
+			printf("Command not recognized (yet): %s\n", original);
+		cmd_clear(&cmds);
+		token_clear(&tokens);
+		free(cmd_error);
+		free(error);
+		free(parts);
+		free(original);
 		free(input);
 	}
 	return (0);

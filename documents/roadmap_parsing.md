@@ -6,22 +6,22 @@ para completarlo en 7-10 días. Se basa en el subject de Minishell y en la check
 ---
 
 ## 📅 Día 1–2: Tokenización básica
-- [ ] Separar la línea de entrada en tokens por espacios.
-- [ ] Ignorar espacios múltiples consecutivos.
-- [ ] Manejar comillas simples y dobles para no romper tokens.
-- [ ] Probar con inputs simples: `echo hola`, `echo "hola mundo"`.
+- [x] Separar la línea de entrada en tokens por espacios.
+- [x] Ignorar espacios múltiples consecutivos.
+- [x] Manejar comillas simples y dobles para no romper tokens.
+- [x] Probar con inputs simples: `echo hola`, `echo "hola mundo"`.
 
 ## 📅 Día 3: Clasificación de tokens
-- [ ] Identificar tipos de token: WORD, PIPE, REDIR_IN, REDIR_OUT, REDIR_APPEND, HEREDOC.
-- [ ] Construir una lista de tokens con su tipo asociado.
-- [ ] Detectar errores básicos: `| |`, `>`, `>>` o `<` sin archivo después.
+- [x] Identificar tipos de token: WORD, PIPE, REDIR_IN, REDIR_OUT, REDIR_APPEND, HEREDOC.
+- [x] Construir una lista de tokens con su tipo asociado.
+- [x] Detectar errores básicos: `| |`, `>`, `>>` o `<` sin archivo después.
 
 ## 📅 Día 4–5: Construcción de comandos
-- [ ] Agrupar tokens en estructuras de comando.
-- [ ] Guardar nombre y argumentos en cada comando.
-- [ ] Asociar redirecciones con cada comando.
-- [ ] Conectar comandos con una lista enlazada para manejar pipes.
-- [ ] Probar con inputs: `ls -l | grep txt`, `cat < file.txt > out.txt`.
+- [x] Agrupar tokens en estructuras de comando.
+- [x] Guardar nombre y argumentos en cada comando.
+- [x] Asociar redirecciones con cada comando.
+- [x] Conectar comandos con una lista enlazada para manejar pipes.
+- [x] Probar con inputs: `ls -l | grep txt`, `cat < file.txt > out.txt`.
 
 ## 📅 Día 6–7: Expansiones
 - [ ] Implementar expansión de `$VAR` usando el entorno.
@@ -54,4 +54,3 @@ Al final del roadmap deberías tener un **parser funcional** que:
 - Maneja correctamente comillas, pipes, redirecciones y expansiones.
 - Detecta y reporta errores de sintaxis.
 - Devuelve estructuras limpias listas para la fase de ejecución.
-

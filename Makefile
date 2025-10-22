@@ -14,7 +14,16 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes
-SRC = src/main.c src/utils.c
+SRC = \
+	src/main.c \
+	src/env/copy_env.c \
+	src/utils/utils.c \
+	src/parsing/split_input.c \
+	src/parsing/command_builder.c \
+	src/parsing/command_utils.c \
+	src/parsing/token_list.c \
+	src/parsing/token_utils.c \
+	src/parsing/tokenizer.c
 OBJDIR = obj
 OBJ = $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRC))
 
@@ -34,7 +43,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: src/%.c
-	@mkdir -p $(OBJDIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
