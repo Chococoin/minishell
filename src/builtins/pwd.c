@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 15:33:10 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:31:40 by glugo-mu         ###   ########.fr       */
+/*   Created: 2025/10/08 15:34:06 by siellage          #+#    #+#             */
+/*   Updated: 2025/10/31 16:24:29 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	runecho(t_cmdlist *cmdnode)
+void	runpwd(t_cmdlist *cmdnode)
 {
-	char	**path;
-	int		isn;
+	char	cwd[256];
+	char	*pwd;
 
-	isn = 0;
-	path = &cmdnode->path[1];
-	if (*path && str_compare(*path, "-n"))
-	{
-		isn = 1;
-		path++;
-	}
-	while (*path)
-	{
-		if (*path)
-			write(cmdnode->outfile, *path, ft_strlen(*path));
-		if (*(++path))
-			write(cmdnode->outfile, " ", 1);
-	}
-	if (!isn)
-		write(cmdnode->outfile, "\n", 1);
+	pwd = getcwd(cwd, 256);
+	write(cmdnode->outfile, pwd, ft_strlen(pwd));
+	write(cmdnode->outfile, "\n", 1);
 }
