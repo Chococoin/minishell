@@ -29,9 +29,9 @@
 - [x] `exit`
 
 ## Segnali
-- [ ] Ctrl-C → nuova linea e nuovo prompt
-- [ ] Ctrl-D → uscita
-- [ ] Ctrl-\ → non fare nulla
+- [x] Ctrl-C → nuova linea e nuovo prompt
+- [x] Ctrl-D → uscita
+- [x] Ctrl-\ → non fare nulla
 
 ## Redirezioni
 - [x] `<` redirige stdin
