@@ -12,11 +12,6 @@
 
 #include "minishell.h"
 
-static int	is_blank(char c)
-{
-	return (c == ' ' || c == '\t');
-}
-
 static int	ensure_capacity(t_split_ctx *ctx)
 {
 	char	**new_args;
@@ -41,27 +36,35 @@ static int	ensure_capacity(t_split_ctx *ctx)
 	return (1);
 }
 
+static int	process_quote(char *input, size_t *i, t_split_ctx *ctx)
+{
+	char	quote;
+
+	quote = input[(*i)++];
+	while (input[*i] && input[*i] != quote)
+		(*i)++;
+	if (!input[*i])
+	{
+		ctx->quote_error = quote;
+		return (0);
+	}
+	return (1);
+}
+
 static int	add_token(t_split_ctx *ctx, char *input, size_t *idx)
 {
 	size_t	i;
-	char	quote;
 
 	if (!ensure_capacity(ctx))
 		return (0);
 	ctx->tokens[ctx->count++] = &input[*idx];
 	i = *idx;
-	while (input[i] && !is_blank(input[i]))
+	while (input[i] && input[i] != ' ' && input[i] != '\t')
 	{
 		if (input[i] == '\'' || input[i] == '\"')
 		{
-			quote = input[i++];
-			while (input[i] && input[i] != quote)
-				i++;
-			if (!input[i])
-			{
-				ctx->quote_error = quote;
+			if (!process_quote(input, &i, ctx))
 				return (0);
-			}
 		}
 		if (input[i])
 			i++;
@@ -79,7 +82,7 @@ static int	fill_tokens(t_split_ctx *ctx, char *input)
 	i = 0;
 	while (input[i])
 	{
-		while (input[i] && is_blank(input[i]))
+		while (input[i] && (input[i] == ' ' || input[i] == '\t'))
 			i++;
 		if (!input[i])
 			break ;
@@ -104,8 +107,8 @@ char	**split_input(char *input)
 	if (!fill_tokens(&ctx, input))
 	{
 		if (ctx.quote_error)
-			printf("minishell: unexpected EOF while looking for matching `%c'\n",
-				ctx.quote_error);
+			printf("minishell: unexpected EOF while looking for "
+				"matching `%c'\n", ctx.quote_error);
 		free(ctx.tokens);
 		return (NULL);
 	}

@@ -80,6 +80,9 @@ int		token_add_new(t_token **tokens, char *value, t_token_type type);
 int		token_is_redirect(t_token_type type);
 int		token_set_error(char **error, const char *token);
 void	expand_tokens(t_token *tokens, char **envp, int exit_status);
+char	*get_var_value(char *var_name, char **envp, int exit_status);
+char	*extract_var_name(const char *str, size_t *len);
+char	*remove_quotes_and_get_mode(const char *str, int *quote_mode);
 t_cmd	*commands_from_tokens(t_token *tokens, char **error);
 void	cmd_clear(t_cmd **cmds);
 

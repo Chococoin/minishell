@@ -33,24 +33,17 @@ static int	append_arg(t_cmd *cmd, const char *value, char **error)
 
 	argv = malloc(sizeof(char *) * (cmd->argc + 2));
 	if (!argv)
-	{
-		token_set_error(error, "allocation");
-		return (0);
-	}
+		return (token_set_error(error, "allocation"), 0);
 	i = 0;
 	while (i < cmd->argc)
 	{
 		argv[i] = cmd->argv[i];
 		i++;
 	}
-	argv[i] = ft_strdup(value);
-	if (!argv[i])
-	{
-		free(argv);
-		token_set_error(error, "allocation");
-		return (0);
-	}
-	argv[i + 1] = NULL;
+	argv[cmd->argc] = ft_strdup(value);
+	if (!argv[cmd->argc])
+		return (free(argv), token_set_error(error, "allocation"), 0);
+	argv[cmd->argc + 1] = NULL;
 	free(cmd->argv);
 	cmd->argv = argv;
 	cmd->argc++;
@@ -65,17 +58,10 @@ static int	append_redir(t_cmd *cmd, t_token_type type, const char *target,
 
 	node = malloc(sizeof(*node));
 	if (!node)
-	{
-		token_set_error(error, "allocation");
-		return (0);
-	}
+		return (token_set_error(error, "allocation"), 0);
 	node->target = ft_strdup(target);
 	if (!node->target)
-	{
-		free(node);
-		token_set_error(error, "allocation");
-		return (0);
-	}
+		return (free(node), token_set_error(error, "allocation"), 0);
 	node->type = type;
 	node->next = NULL;
 	if (!cmd->redirs)
@@ -103,7 +89,7 @@ static int	fill_command(t_cmd *cmd, t_token **cursor, char **error)
 			if (!append_arg(cmd, token->value, error))
 				return (0);
 			*cursor = token->next;
-			continue;
+			continue ;
 		}
 		target = token->next;
 		if (!target)
@@ -133,18 +119,8 @@ t_cmd	*commands_from_tokens(t_token *tokens, char **error)
 	while (cursor)
 	{
 		cmd = cmd_new();
-		if (!cmd)
-		{
-			token_set_error(error, "allocation");
-			cmd_clear(&head);
-			return (NULL);
-		}
-		if (!fill_command(cmd, &cursor, error))
-		{
-			cmd_clear(&cmd);
-			cmd_clear(&head);
-			return (NULL);
-		}
+		if (!cmd || !fill_command(cmd, &cursor, error))
+			return (cmd_clear(&cmd), cmd_clear(&head), NULL);
 		if (!head)
 			head = cmd;
 		else
