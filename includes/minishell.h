@@ -90,5 +90,7 @@ char	*extract_var_name(const char *str, size_t *len);
 char	*remove_quotes_and_get_mode(const char *str, int *quote_mode);
 t_cmd	*commands_from_tokens(t_token *tokens, char **error);
 void	cmd_clear(t_cmd **cmds);
+char	*find_in_path(const char *cmd, char **envp);
+int		execute_external(t_cmd *cmd, char **envp);
 
 #endif

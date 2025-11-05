@@ -53,9 +53,12 @@ static void	execute_builtin(t_cmd *cmd)
 	free_cmdlist_adapter(cmdlist);
 }
 
-static void	execute_cmd(t_cmd *first, char **my_env, char *original)
+static int	execute_cmd(t_cmd *first, char **my_env, char *original)
 {
-	(void)my_env;
+	int	status;
+
+	(void)original;
+	status = 0;
 	if (first->next)
 		printf("Command pipeline not supported (yet)\n");
 	else if (first->argv && first->argv[0])
@@ -63,10 +66,9 @@ static void	execute_cmd(t_cmd *first, char **my_env, char *original)
 		if (isbuiltin(first->argv[0]))
 			execute_builtin(first);
 		else
-			printf("Command not recognized (yet): %s\n", original);
+			status = execute_external(first, my_env);
 	}
-	else
-		printf("Command not recognized (yet): %s\n", original);
+	return (status);
 }
 
 static int	process_loop(char **my_env, int *exit_status)
@@ -88,7 +90,10 @@ static int	process_loop(char **my_env, int *exit_status)
 		expand_tokens(tokens, my_env, *exit_status);
 		cmds = commands_from_tokens(tokens, NULL);
 		if (cmds)
-			(execute_cmd(cmds, my_env, original), cmd_clear(&cmds));
+		{
+			*exit_status = execute_cmd(cmds, my_env, original);
+			cmd_clear(&cmds);
+		}
 		token_clear(&tokens);
 	}
 	return (free_resources(input, parts, original), 1);

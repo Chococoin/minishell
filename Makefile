@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes
 SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/adapters/cmd_adapter.c src/adapters/env_adapter.c \
+		src/execution/executor.c src/execution/path_resolver.c \
 		src/parsing/split_input.c src/parsing/command_builder.c \
 		src/parsing/command_utils.c src/parsing/token_list.c \
 		src/parsing/token_utils.c src/parsing/tokenizer.c src/parsing/expand.c \

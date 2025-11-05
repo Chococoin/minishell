@@ -1,32 +1,32 @@
 # Checklist Minishell
 
 ## Prompt & Cronologia
-- [ ] Mostrare un prompt fisso `minishell$ `
-- [ ] Usare `readline()` per l’input
-- [ ] Salvare la cronologia con `add_history()`
+- [x] Mostrare un prompt fisso `minishell$ `
+- [x] Usare `readline()` per l'input
+- [x] Salvare la cronologia con `add_history()`
 
 ## Esecuzione
-- [ ] Risolvere i percorsi tramite `$PATH`
-- [ ] Eseguire i binari con `fork` + `execve`
-- [ ] Gestire percorsi assoluti/relativi
+- [x] Risolvere i percorsi tramite `$PATH`
+- [x] Eseguire i binari con `fork` + `execve`
+- [x] Gestire percorsi assoluti/relativi
 
 ## Parsing
-- [ ] Gestire `'single quotes'` (nessuna espansione)
-- [ ] Gestire `"double quotes"` (espansione di `$VAR`, `$?`)
-- [ ] Riconoscere redirezioni `<`, `>`, `>>`, `<<`
-- [ ] Implementare le pipe `|`
-- [ ] Implementare espansione di `$VAR`
-- [ ] Implementare espansione di `$?`
+- [x] Gestire `'single quotes'` (nessuna espansione)
+- [x] Gestire `"double quotes"` (espansione di `$VAR`, `$?`)
+- [x] Riconoscere redirezioni `<`, `>`, `>>`, `<<`
+- [x] Implementare le pipe `|`
+- [x] Implementare espansione di `$VAR`
+- [x] Implementare espansione di `$?`
 - [ ] Gestire i segnali nel parser (Ctrl-C, Ctrl-D, Ctrl-\)
 
 ## Built-in
-- [ ] `echo -n`
-- [ ] `cd` (percorso assoluto o relativo)
-- [ ] `pwd`
-- [ ] `export`
-- [ ] `unset`
-- [ ] `env`
-- [ ] `exit`
+- [x] `echo -n`
+- [x] `cd` (percorso assoluto o relativo)
+- [x] `pwd`
+- [x] `export`
+- [x] `unset`
+- [x] `env`
+- [x] `exit`
 
 ## Segnali
 - [ ] Ctrl-C → nuova linea e nuovo prompt
