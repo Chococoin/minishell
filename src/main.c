@@ -11,17 +11,10 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell2.h"
 
-static char	**init_env(void)
-{
-	char	*fake_env[4];
-
-	fake_env[0] = "USER=german";
-	fake_env[1] = "PWD=/Users/german";
-	fake_env[2] = "PATH=/usr/bin:/bin";
-	fake_env[3] = NULL;
-	return (copy_env(fake_env));
-}
+t_cmdlist	*cmd_to_cmdlist(t_cmd *cmd);
+void		free_cmdlist_adapter(t_cmdlist *cmdlist);
 
 static t_token	*process_input(char *input, char ***parts_out, char **orig_out)
 {
@@ -46,16 +39,29 @@ static t_token	*process_input(char *input, char ***parts_out, char **orig_out)
 	return (tokens);
 }
 
+static void	execute_builtin(t_cmd *cmd)
+{
+	t_cmdlist	*cmdlist;
+	int			builtin_type;
+
+	cmdlist = cmd_to_cmdlist(cmd);
+	if (!cmdlist)
+		return ;
+	builtin_type = isbuiltin(cmd->argv[0]);
+	if (builtin_type)
+		runbuiltin(cmdlist, builtin_type, NULL, -1);
+	free_cmdlist_adapter(cmdlist);
+}
+
 static void	execute_cmd(t_cmd *first, char **my_env, char *original)
 {
+	(void)my_env;
 	if (first->next)
 		printf("Command pipeline not supported (yet)\n");
 	else if (first->argv && first->argv[0])
 	{
-		if (ft_strcmp(first->argv[0], "env") == 0)
-			print_env(my_env);
-		else if (is_builtin(first->argv[0]))
-			exec_builtin(first->argv);
+		if (isbuiltin(first->argv[0]))
+			execute_builtin(first);
 		else
 			printf("Command not recognized (yet): %s\n", original);
 	}
@@ -100,6 +106,7 @@ int	main(int argc, char **argv, char **envp)
 	my_env = init_env();
 	if (!my_env)
 		return (1);
+	init_global_env(my_env);
 	while (process_loop(my_env, &exit_status))
 		;
 	free_env(my_env);

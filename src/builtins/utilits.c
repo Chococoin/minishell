@@ -75,7 +75,11 @@ void	ownstrjoin(char **dst, char *src)
 
 	if (!*dst && !src)
 		return ;
-	len = ft_strlen(*dst) + ft_strlen(src);
+	len = 0;
+	if (*dst)
+		len += ft_strlen(*dst);
+	if (src)
+		len += ft_strlen(src);
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	ptr[len] = 0;
 	holderptr = ptr;

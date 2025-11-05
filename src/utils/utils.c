@@ -101,18 +101,8 @@ void	print_env(char **my_env)
 
 void	free_resources(char *input, char **parts, char *original)
 {
-	int	i;
-
 	if (parts)
-	{
-		i = 0;
-		while (parts[i])
-		{
-			free(parts[i]);
-			i++;
-		}
 		free(parts);
-	}
 	if (original)
 		free(original);
 	if (input)

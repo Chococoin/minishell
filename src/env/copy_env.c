@@ -75,3 +75,14 @@ void	free_env(char **env)
 	}
 	free(env);
 }
+
+char	**init_env(void)
+{
+	char	*fake_env[4];
+
+	fake_env[0] = "USER=german";
+	fake_env[1] = "PWD=/Users/german";
+	fake_env[2] = "PATH=/usr/bin:/bin";
+	fake_env[3] = NULL;
+	return (copy_env(fake_env));
+}

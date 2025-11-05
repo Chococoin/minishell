@@ -75,6 +75,8 @@ void	print_env(char **my_env);
 void	free_resources(char *input, char **parts, char *original);
 char	**copy_env(char **envp);
 void	free_env(char **env);
+char	**init_env(void);
+void	init_global_env(char **envp);
 char	**split_input(char *input);
 int		validate_input(const char *input);
 t_token	*tokenize(char **parts, char **error);
