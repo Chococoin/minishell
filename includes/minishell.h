@@ -48,8 +48,8 @@ typedef struct s_token
 
 typedef struct s_token_iter
 {
-	char		**parts;
-	size_t		index;
+	char			**parts;
+	size_t			index;
 	t_token_type	prev;
 }	t_token_iter;
 
@@ -62,9 +62,9 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char		**argv;
-	size_t		argc;
-	t_redir		*redirs;
+	char			**argv;
+	size_t			argc;
+	t_redir			*redirs;
 	struct s_cmd	*next;
 }	t_cmd;
 

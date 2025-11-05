@@ -20,15 +20,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-#define ECHO 1
-#define CD 2
-#define PWD 3
-#define EXPORT 4
-#define UNSET 5
-#define ENV 6
-#define EXIT 7
-#define HERADOC -2
-#define SSTDERR 2
+# define ECHO 1
+# define CD 2
+# define PWD 3
+# define EXPORT 4
+# define UNSET 5
+# define ENV 6
+# define EXIT 7
+# define HERADOC -2
+# define SSTDERR 2
 
 typedef struct s_filelist
 {
@@ -85,38 +85,28 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-t_core g_core;
+t_core	g_core;
 
-int	isbuiltin(char *cmd);
+int		isbuiltin(char *cmd);
 void	runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd, int fd_index);
 void	runecho(t_cmdlist *cmdnode);
 void	runenv(t_cmdlist *cmdnode);
 void	runpwd(t_cmdlist *cmdnode);
-
-//cd
 void	runcd(t_cmdlist *cmdnode);
 void	cdsinglearg(void);
 void	cddoublearg(t_cmdlist *cmd_node);
-int	changedir(char *path);
-int	updatepwdfromexport(char *pwd_name, char *pwd_content);
-
-// unset
+int		changedir(char *path);
+int		updatepwdfromexport(char *pwd_name, char *pwd_content);
 void	rununset(t_cmdlist *cmd_node);
 void	deleteenv(char *name);
 void	createdup(t_cmdlist *cmd_list, int *fd, int fd_index);
-
-//util
-int	getarraylen(char **array);
+int		getarraylen(char **array);
 void	print_error(char *ptr1, char *ptr2, char *ptr3);
 void	changetitle(void);
-int	updateenv(char *envname, char *newarg);
+int		updateenv(char *envname, char *newarg);
 void	ownstrjoin(char **dst, char *src);
 void	straddchar(char **dst, char c);
-
-//exit
-int	isallnumeric(char *text);
+int		isallnumeric(char *text);
 void	runexit(t_cmdlist *cmdnode);
 
 #endif
-
-
