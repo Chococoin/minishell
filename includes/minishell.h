@@ -74,6 +74,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	print_env(char **my_env);
 void	free_resources(char *input, char **parts, char *original);
 char	**copy_env(char **envp);
+void	free_env(char **env);
 char	**split_input(char *input);
 int		validate_input(const char *input);
 t_token	*tokenize(char **parts, char **error);

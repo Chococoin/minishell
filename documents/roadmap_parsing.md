@@ -24,27 +24,28 @@ para completarlo en 7-10 días. Se basa en el subject de Minishell y en la check
 - [x] Probar con inputs: `ls -l | grep txt`, `cat < file.txt > out.txt`.
 
 ## 📅 Día 6–7: Expansiones
-- [ ] Implementar expansión de `$VAR` usando el entorno.
-- [ ] Implementar expansión de `$?` para el último exit status.
-- [ ] Respetar las reglas de comillas: `' '` no expande, `" "` sí expande.
-- [ ] Probar con: `echo $USER`, `echo "$USER"`, `echo '$USER'`.
+- [x] Implementar expansión de `$VAR` usando el entorno.
+- [x] Implementar expansión de `$?` para el último exit status.
+- [x] Respetar las reglas de comillas: `' '` no expande, `" "` sí expande.
+- [x] Probar con: `echo $USER`, `echo "$USER"`, `echo '$USER'`.
 
 ## 📅 Día 8: Validaciones
-- [ ] Detectar comillas no cerradas.
-- [ ] Validar pipes al inicio o al final de la línea.
-- [ ] Validar redirecciones sin archivo.
-- [ ] Preparar mensajes de error (similares a Bash).
+- [x] Detectar comillas no cerradas.
+- [x] Validar pipes al inicio o al final de la línea.
+- [x] Validar redirecciones sin archivo.
+- [x] Preparar mensajes de error (similares a Bash).
+- [x] Detectar caracteres especiales no soportados (;, \, &).
 
 ## 📅 Día 9: Integración con ejecución (simulada)
-- [ ] Asegurarse de que el parser devuelva una lista enlazada limpia.
-- [ ] Simular el recorrido de la lista enlazada sin ejecutar nada real.
-- [ ] Probar con múltiples pipes y redirecciones combinadas.
+- [x] Asegurarse de que el parser devuelva una lista enlazada limpia.
+- [x] Simular el recorrido de la lista enlazada sin ejecutar nada real.
+- [x] Probar con múltiples pipes y redirecciones combinadas.
 
 ## 📅 Día 10: Refactor y pruebas finales
-- [ ] Revisar fugas de memoria (valgrind).
-- [ ] Limpiar y dividir el código en funciones pequeñas.
-- [ ] Documentar cada etapa del parser para la defensa.
-- [ ] Preparar ejemplos explicativos para mostrar al evaluador.
+- [x] Revisar fugas de memoria (valgrind).
+- [x] Limpiar y dividir el código en funciones pequeñas.
+- [x] Documentar cada etapa del parser para la defensa.
+- [x] Preparar ejemplos explicativos para mostrar al evaluador.
 
 ---
 

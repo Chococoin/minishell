@@ -102,5 +102,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (process_loop(my_env, &exit_status))
 		;
+	free_env(my_env);
 	return (0);
 }
