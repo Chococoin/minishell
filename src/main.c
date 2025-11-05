@@ -24,10 +24,12 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_error;
 	t_cmd	*first;
 	int		i;
+	int		exit_status;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	exit_status = 0;
 	// Hardcode envp for debugging
 	char *fake_env[] = {
 		"USER=german",
@@ -80,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;
 		}
+		expand_tokens(tokens, my_env, exit_status);
 		cmd_error = NULL;
 		cmds = commands_from_tokens(tokens, &cmd_error);
 		if (!cmds)

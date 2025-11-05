@@ -6,10 +6,9 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 12:11:44 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:55:56 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:40:42 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL2_H
 # define MINISHELL2_H
@@ -45,7 +44,6 @@ typedef struct s_lexlist
 	char				*content;
 	struct s_lexlist	*next;
 }	t_lexlist;
-
 
 typedef struct s_title
 {
@@ -89,7 +87,6 @@ typedef struct s_env
 
 t_core g_core;
 
-
 int	isbuiltin(char *cmd);
 void	runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd, int fd_index);
 void	runecho(t_cmdlist *cmdnode);
@@ -106,8 +103,6 @@ int	updatepwdfromexport(char *pwd_name, char *pwd_content);
 // unset
 void	rununset(t_cmdlist *cmd_node);
 void	deleteenv(char *name);
-
-
 void	createdup(t_cmdlist *cmd_list, int *fd, int fd_index);
 
 //util
@@ -117,7 +112,6 @@ void	changetitle(void);
 int	updateenv(char *envname, char *newarg);
 void	ownstrjoin(char **dst, char *src);
 void	straddchar(char **dst, char c);
-
 
 //exit
 int	isallnumeric(char *text);

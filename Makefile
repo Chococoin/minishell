@@ -17,7 +17,8 @@ INCLUDES = -I includes
 SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/parsing/split_input.c src/parsing/command_builder.c \
 		src/parsing/command_utils.c src/parsing/token_list.c \
-		src/parsing/token_utils.c src/parsing/tokenizer.c src/libft/ft_isalpha.c \
+		src/parsing/token_utils.c src/parsing/tokenizer.c src/parsing/expand.c \
+		src/libft/ft_isalpha.c \
 		src/libft/ft_isdigit.c src/libft/ft_isalnum.c src/libft/ft_isascii.c \
 		src/libft/ft_isprint.c src/libft/ft_strlen.c src/libft/ft_memset.c \
 		src/libft/ft_bzero.c src/libft/ft_memcpy.c src/libft/ft_memmove.c \
@@ -27,8 +28,9 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/libft/ft_strnstr.c src/libft/ft_atoi.c src/libft/ft_calloc.c \
 		src/libft/ft_strdup.c src/libft/ft_putnbr_fd.c src/libft/ft_putstr_fd.c \
 		src/libft/ft_putendl_fd.c src/libft/ft_putchar_fd.c src/libft/ft_substr.c \
-		src/libft/ft_strjoin.c src/libft/ft_strtrim.c src/libft/ft_split.c \
-		src/libft/ft_itoa.c src/libft/ft_striteri.c src/libft/ft_strmapi.c 
+		src/libft/ft_strjoin.c src/libft/ft_strjoin_char.c src/libft/ft_strtrim.c \
+		src/libft/ft_split.c src/libft/ft_itoa.c src/libft/ft_striteri.c \
+		src/libft/ft_strmapi.c 
 OBJDIR = obj
 OBJ = $(patsubst src/%.c,$(OBJDIR)/%.o,$(SRC))
 

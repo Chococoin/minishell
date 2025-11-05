@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft.h"
 
 typedef struct s_split_ctx
 {
@@ -68,16 +69,15 @@ typedef struct s_cmd
 
 int		is_builtin(char *cmd);
 int		exec_builtin(char **args);
-char	*ft_strdup(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 char	**copy_env(char **envp);
 char	**split_input(char *input);
-int		ft_strlen(const char *s);
 t_token	*tokenize(char **parts, char **error);
 void	token_clear(t_token **tokens);
 int		token_add_new(t_token **tokens, char *value, t_token_type type);
 int		token_is_redirect(t_token_type type);
 int		token_set_error(char **error, const char *token);
+void	expand_tokens(t_token *tokens, char **envp, int exit_status);
 t_cmd	*commands_from_tokens(t_token *tokens, char **error);
 void	cmd_clear(t_cmd **cmds);
 
