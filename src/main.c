@@ -97,9 +97,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	exit_status = 0;
-	my_env = init_env();
+	if (!envp || !envp[0])
+		my_env = init_env();
+	else
+		my_env = copy_env(envp);
 	if (!my_env)
 		return (1);
 	init_global_env(my_env);
