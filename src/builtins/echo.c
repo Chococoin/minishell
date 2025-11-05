@@ -19,7 +19,7 @@ void	runecho(t_cmdlist *cmdnode)
 
 	isn = 0;
 	path = &cmdnode->path[1];
-	if (*path && str_compare(*path, "-n"))
+	while (*path && str_compare(*path, "-n"))
 	{
 		isn = 1;
 		path++;
