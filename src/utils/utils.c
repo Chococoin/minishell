@@ -58,7 +58,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);
@@ -70,7 +70,7 @@ int is_builtin(char *cmd)
 }
 
 // Mock: prints which built-in was detected
-int exec_builtin(char **args)
+int	exec_builtin(char **args)
 {
 	if (!args || !args[0])
 		return (1);
@@ -85,4 +85,26 @@ int exec_builtin(char **args)
 		return (0);
 	}
 	return (1);
+}
+
+void	print_env(char **my_env)
+{
+	int	i;
+
+	i = 0;
+	while (my_env[i])
+	{
+		printf("%s\n", my_env[i]);
+		i++;
+	}
+}
+
+void	free_resources(char *input, char **parts, char *original)
+{
+	if (parts)
+		free(parts);
+	if (original)
+		free(original);
+	if (input)
+		free(input);
 }

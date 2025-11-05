@@ -71,6 +71,8 @@ typedef struct s_cmd
 int		is_builtin(char *cmd);
 int		exec_builtin(char **args);
 int		ft_strcmp(const char *s1, const char *s2);
+void	print_env(char **my_env);
+void	free_resources(char *input, char **parts, char *original);
 char	**copy_env(char **envp);
 char	**split_input(char *input);
 int		validate_input(const char *input);

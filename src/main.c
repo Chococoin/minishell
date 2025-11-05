@@ -12,124 +12,95 @@
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+static char	**init_env(void)
+{
+	char	*fake_env[4];
+
+	fake_env[0] = "USER=german";
+	fake_env[1] = "PWD=/Users/german";
+	fake_env[2] = "PATH=/usr/bin:/bin";
+	fake_env[3] = NULL;
+	return (copy_env(fake_env));
+}
+
+static t_token	*process_input(char *input, char ***parts_out, char **orig_out)
+{
+	char	**parts;
+	char	*error;
+	t_token	*tokens;
+
+	*orig_out = ft_strdup(input);
+	if (!*orig_out || !validate_input(input))
+		return (NULL);
+	parts = split_input(input);
+	*parts_out = parts;
+	if (!parts)
+		return (NULL);
+	error = NULL;
+	tokens = tokenize(parts, &error);
+	if (!tokens && error)
+	{
+		printf("minishell: syntax error near unexpected token `%s'\n", error);
+		free(error);
+	}
+	return (tokens);
+}
+
+static void	execute_cmd(t_cmd *first, char **my_env, char *original)
+{
+	if (first->next)
+		printf("Command pipeline not supported (yet)\n");
+	else if (first->argv && first->argv[0])
+	{
+		if (ft_strcmp(first->argv[0], "env") == 0)
+			print_env(my_env);
+		else if (is_builtin(first->argv[0]))
+			exec_builtin(first->argv);
+		else
+			printf("Command not recognized (yet): %s\n", original);
+	}
+	else
+		printf("Command not recognized (yet): %s\n", original);
+}
+
+static int	process_loop(char **my_env, int *exit_status)
 {
 	char	*input;
 	char	**parts;
-	char	**my_env;
 	char	*original;
 	t_token	*tokens;
-	char	*error;
 	t_cmd	*cmds;
-	char	*cmd_error;
-	t_cmd	*first;
-	int		i;
+
+	input = readline("minishell> ");
+	if (!input || ft_strcmp(input, "exit") == 0)
+		return (free_resources(input, NULL, NULL), 0);
+	if (*input)
+		add_history(input);
+	tokens = process_input(input, &parts, &original);
+	if (tokens)
+	{
+		expand_tokens(tokens, my_env, *exit_status);
+		cmds = commands_from_tokens(tokens, NULL);
+		if (cmds)
+			(execute_cmd(cmds, my_env, original), cmd_clear(&cmds));
+		token_clear(&tokens);
+	}
+	return (free_resources(input, parts, original), 1);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	**my_env;
 	int		exit_status;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	exit_status = 0;
-	// Hardcode envp for debugging
-	char *fake_env[] = {
-		"USER=german",
-		"PWD=/Users/german",
-		"PATH=/usr/bin:/bin",
-		NULL
-	};
-	my_env = copy_env(fake_env);
+	my_env = init_env();
 	if (!my_env)
 		return (1);
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (*input)
-			add_history(input);
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break ;
-		}
-		original = ft_strdup(input);
-		if (!original)
-		{
-			free(input);
-			continue ;
-		}
-		if (!validate_input(input))
-		{
-			free(original);
-			free(input);
-			continue ;
-		}
-		parts = split_input(input);
-		if (!parts)
-		{
-			free(original);
-			free(input);
-			continue ;
-		}
-		error = NULL;
-		tokens = tokenize(parts, &error);
-		if (!tokens)
-		{
-			if (error)
-				printf("minishell: syntax error near unexpected token `%s'\n",
-					error);
-			free(error);
-			free(parts);
-			free(original);
-			free(input);
-			continue ;
-		}
-		expand_tokens(tokens, my_env, exit_status);
-		cmd_error = NULL;
-		cmds = commands_from_tokens(tokens, &cmd_error);
-		if (!cmds)
-		{
-			if (cmd_error)
-				printf("minishell: %s\n", cmd_error);
-			free(cmd_error);
-			token_clear(&tokens);
-			free(error);
-			free(parts);
-			free(original);
-			free(input);
-			continue ;
-		}
-		first = cmds;
-		if (first->next)
-			printf("Command pipeline not supported (yet)\n");
-		else if (first->argv && first->argv[0])
-		{
-			if (ft_strcmp(first->argv[0], "env") == 0)
-			{
-				i = 0;
-				while (my_env[i])
-				{
-					printf("%s\n", my_env[i]);
-					i++;
-				}
-			}
-			else if (is_builtin(first->argv[0]))
-				exec_builtin(first->argv);
-			else
-				printf("Command not recognized (yet): %s\n", original);
-		}
-		else
-			printf("Command not recognized (yet): %s\n", original);
-		cmd_clear(&cmds);
-		token_clear(&tokens);
-		free(cmd_error);
-		free(error);
-		free(parts);
-		free(original);
-		free(input);
-	}
+	while (process_loop(my_env, &exit_status))
+		;
 	return (0);
 }

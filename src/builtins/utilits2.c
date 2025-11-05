@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   utilits2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 15:33:10 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:31:40 by glugo-mu         ###   ########.fr       */
+/*   Created: 2025/11/05 00:00:00 by glugo-mu          #+#    #+#             */
+/*   Updated: 2025/11/05 00:00:00 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	runecho(t_cmdlist *cmdnode)
+void	straddchar(char **dst, char c)
 {
-	char	**path;
-	int		isn;
+	char	*ptr;
+	char	*holderptr;
+	char	*holderdst;
+	int		len;
 
-	isn = 0;
-	path = &cmdnode->path[1];
-	if (*path && str_compare(*path, "-n"))
-	{
-		isn = 1;
-		path++;
-	}
-	while (*path)
-	{
-		if (*path)
-			write(cmdnode->outfile, *path, ft_strlen(*path));
-		if (*(++path))
-			write(cmdnode->outfile, " ", 1);
-	}
-	if (!isn)
-		write(cmdnode->outfile, "\n", 1);
+	len = ft_strlen(*dst) + 1;
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	holderptr = ptr;
+	holderdst = *dst;
+	while (holderdst && *holderdst)
+		*(holderptr++) = *(holderdst++);
+	*(holderptr++) = c;
+	*(holderptr++) = 0;
+	if (*dst)
+		free(*dst);
+	*dst = ptr;
 }
