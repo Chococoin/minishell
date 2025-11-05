@@ -33,6 +33,8 @@ static void	exec_pipe_cmd(t_pipe_ctx *ctx)
 	char	*path;
 
 	setup_pipe_fds(ctx->cmd_i, ctx->n_cmds, ctx->pipes);
+	if (ctx->cmd->redirs && apply_redirections(ctx->cmd->redirs) < 0)
+		exit(1);
 	if (isbuiltin(ctx->cmd->argv[0]))
 	{
 		execute_builtin_simple(ctx->cmd);

@@ -34,10 +34,10 @@
 - [ ] Ctrl-\ → non fare nulla
 
 ## Redirezioni
-- [ ] `<` redirige stdin
-- [ ] `>` redirige stdout (truncate)
-- [ ] `>>` redirige stdout (append)
-- [ ] `<<` heredoc fino al delimitatore
+- [x] `<` redirige stdin
+- [x] `>` redirige stdout (truncate)
+- [x] `>>` redirige stdout (append)
+- [x] `<<` heredoc fino al delimitatore
 
 ## Flusso Minishel
 

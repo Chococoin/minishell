@@ -103,5 +103,6 @@ char	*find_in_path(const char *cmd, char **envp);
 int		execute_external(t_cmd *cmd, char **envp);
 int		execute_pipeline(t_cmd *first, char **envp);
 void	execute_builtin_simple(t_cmd *cmd);
+int		apply_redirections(t_redir *redirs);
 
 #endif

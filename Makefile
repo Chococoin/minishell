@@ -19,6 +19,7 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/adapters/builtin_adapter.c \
 		src/execution/executor.c src/execution/path_resolver.c \
 		src/execution/pipeline.c src/execution/pipe_utils.c \
+		src/execution/redirections.c \
 		src/parsing/split_input.c src/parsing/command_builder.c \
 		src/parsing/command_utils.c src/parsing/token_list.c \
 		src/parsing/token_utils.c src/parsing/tokenizer.c src/parsing/expand.c \

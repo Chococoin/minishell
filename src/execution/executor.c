@@ -15,6 +15,8 @@
 
 static void	exec_child(char *path, t_cmd *cmd, char **envp)
 {
+	if (cmd->redirs && apply_redirections(cmd->redirs) < 0)
+		exit(1);
 	execve(path, cmd->argv, envp);
 	perror("minishell");
 	exit(127);
