@@ -19,6 +19,12 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/parsing/command_utils.c src/parsing/token_list.c \
 		src/parsing/token_utils.c src/parsing/tokenizer.c src/parsing/expand.c \
 		src/parsing/expand_utils.c src/parsing/validate.c \
+		src/builtins/builtin.c src/builtins/cd.c src/builtins/createdup.c \
+		src/builtins/echo.c src/builtins/env.c src/builtins/envutils.c \
+		src/builtins/exit.c src/builtins/export.c \
+		src/builtins/pwd.c src/builtins/unset.c src/builtins/utilits.c \
+		src/builtins/utilits2.c src/builtins/builtins_utils.c \
+		src/builtins/builtins_utils2.c src/builtins/builtins_utils3.c \
 		src/libft/ft_isalpha.c \
 		src/libft/ft_isdigit.c src/libft/ft_isalnum.c src/libft/ft_isascii.c \
 		src/libft/ft_isprint.c src/libft/ft_strlen.c src/libft/ft_memset.c \

@@ -39,9 +39,9 @@ void	changetitle(void)
 	if (g_core.title.full_title)
 		free(g_core.title.full_title);
 	g_core.title.full_title = NULL;
-	own_strjoin(&g_core.title.full_title, g_core.title.head);
-	own_strjoin(&g_core.title.full_title, (char *)getcwd(cwd, 256));
-	own_strjoin(&g_core.title.full_title, "$ ");
+	ownstrjoin(&g_core.title.full_title, g_core.title.head);
+	ownstrjoin(&g_core.title.full_title, (char *)getcwd(cwd, 256));
+	ownstrjoin(&g_core.title.full_title, "$ ");
 }
 
 int	updateenv(char *envname, char *newarg)
@@ -58,7 +58,7 @@ int	updateenv(char *envname, char *newarg)
 			env->content = NULL;
 			if (!newarg)
 				return (1);
-			own_strjoin(&env->content, newarg);
+			ownstrjoin(&env->content, newarg);
 			return (1);
 		}
 		env = env->next;

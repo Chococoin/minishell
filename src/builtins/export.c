@@ -12,6 +12,9 @@
 
 #include "minishell2.h"
 
+void	singleexportarg(t_cmdlist *cmdnode);
+void	doubleexportarg(char *envcmd);
+
 void	runexport(t_cmdlist *cmdnode)
 {
 	int		arraylen;

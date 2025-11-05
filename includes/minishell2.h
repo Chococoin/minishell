@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft.h"
 
 # define ECHO 1
 # define CD 2
@@ -63,6 +64,13 @@ typedef struct s_cmdlist
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
+typedef struct s_env
+{
+	char			*env_name;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_core
 {
 	int			main_pid;
@@ -78,13 +86,6 @@ typedef struct s_core
 	t_title		title;
 }	t_core;
 
-typedef struct s_env
-{
-	char			*env_name;
-	char			*content;
-	struct s_env	*next;
-}	t_env;
-
 t_core	g_core;
 
 int		isbuiltin(char *cmd);
@@ -93,6 +94,7 @@ void	runecho(t_cmdlist *cmdnode);
 void	runenv(t_cmdlist *cmdnode);
 void	runpwd(t_cmdlist *cmdnode);
 void	runcd(t_cmdlist *cmdnode);
+void	runexport(t_cmdlist *cmdnode);
 void	cdsinglearg(void);
 void	cddoublearg(t_cmdlist *cmd_node);
 int		changedir(char *path);
@@ -101,12 +103,26 @@ void	rununset(t_cmdlist *cmd_node);
 void	deleteenv(char *name);
 void	createdup(t_cmdlist *cmd_list, int *fd, int fd_index);
 int		getarraylen(char **array);
+int		get_array_len(char **array);
 void	print_error(char *ptr1, char *ptr2, char *ptr3);
 void	changetitle(void);
 int		updateenv(char *envname, char *newarg);
 void	ownstrjoin(char **dst, char *src);
 void	straddchar(char **dst, char c);
 int		isallnumeric(char *text);
+int		is_all_numeric(char *text);
 void	runexit(t_cmdlist *cmdnode);
+int		str_compare(char *s1, char *s2);
+int		compare_metachars(char *str);
+int		env_arg_control(char *env);
+int		envargcontrol(char *env);
+char	*envnamecontrol(char *env);
+char	*getenvname(char *content);
+int		getenvnamecount(char *env_arg);
+void	add_newenv(t_env **env, char *envcmd);
+void	clear_pipe(int *fd);
+void	free_for_loop(void);
+void	free_core(void);
+int		changeenv(char *envname, char *arg, int isequal);
 
 #endif
