@@ -58,7 +58,10 @@ static int	add_token(t_split_ctx *ctx, char *input, size_t *idx)
 			while (input[i] && input[i] != quote)
 				i++;
 			if (!input[i])
+			{
+				ctx->quote_error = quote;
 				return (0);
+			}
 		}
 		if (input[i])
 			i++;
@@ -93,12 +96,16 @@ char	**split_input(char *input)
 	if (!input)
 		return (NULL);
 	ctx.capacity = 8;
+	ctx.quote_error = 0;
 	ctx.tokens = malloc(sizeof(char *) * (ctx.capacity + 1));
 	if (!ctx.tokens)
 		return (NULL);
 	ctx.count = 0;
 	if (!fill_tokens(&ctx, input))
 	{
+		if (ctx.quote_error)
+			printf("minishell: unexpected EOF while looking for matching `%c'\n",
+				ctx.quote_error);
 		free(ctx.tokens);
 		return (NULL);
 	}

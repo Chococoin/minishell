@@ -18,7 +18,7 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/parsing/split_input.c src/parsing/command_builder.c \
 		src/parsing/command_utils.c src/parsing/token_list.c \
 		src/parsing/token_utils.c src/parsing/tokenizer.c src/parsing/expand.c \
-		src/libft/ft_isalpha.c \
+		src/parsing/validate.c src/libft/ft_isalpha.c \
 		src/libft/ft_isdigit.c src/libft/ft_isalnum.c src/libft/ft_isascii.c \
 		src/libft/ft_isprint.c src/libft/ft_strlen.c src/libft/ft_memset.c \
 		src/libft/ft_bzero.c src/libft/ft_memcpy.c src/libft/ft_memmove.c \

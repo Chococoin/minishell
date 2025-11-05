@@ -26,6 +26,7 @@ typedef struct s_split_ctx
 	char	**tokens;
 	size_t	count;
 	size_t	capacity;
+	char	quote_error;
 }	t_split_ctx;
 
 typedef enum e_token_type
@@ -72,6 +73,7 @@ int		exec_builtin(char **args);
 int		ft_strcmp(const char *s1, const char *s2);
 char	**copy_env(char **envp);
 char	**split_input(char *input);
+int		validate_input(const char *input);
 t_token	*tokenize(char **parts, char **error);
 void	token_clear(t_token **tokens);
 int		token_add_new(t_token **tokens, char *value, t_token_type type);

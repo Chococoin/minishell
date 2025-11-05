@@ -61,10 +61,15 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;
 		}
+		if (!validate_input(input))
+		{
+			free(original);
+			free(input);
+			continue ;
+		}
 		parts = split_input(input);
 		if (!parts)
 		{
-			printf("minishell: unexpected EOF while looking for matching quote\n");
 			free(original);
 			free(input);
 			continue ;
