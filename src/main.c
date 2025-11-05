@@ -41,16 +41,7 @@ static t_token	*process_input(char *input, char ***parts_out, char **orig_out)
 
 static void	execute_builtin(t_cmd *cmd)
 {
-	t_cmdlist	*cmdlist;
-	int			builtin_type;
-
-	cmdlist = cmd_to_cmdlist(cmd);
-	if (!cmdlist)
-		return ;
-	builtin_type = isbuiltin(cmd->argv[0]);
-	if (builtin_type)
-		runbuiltin(cmdlist, builtin_type, NULL, -1);
-	free_cmdlist_adapter(cmdlist);
+	execute_builtin_simple(cmd);
 }
 
 static int	execute_cmd(t_cmd *first, char **my_env, char *original)
@@ -60,7 +51,7 @@ static int	execute_cmd(t_cmd *first, char **my_env, char *original)
 	(void)original;
 	status = 0;
 	if (first->next)
-		printf("Command pipeline not supported (yet)\n");
+		status = execute_pipeline(first, my_env);
 	else if (first->argv && first->argv[0])
 	{
 		if (isbuiltin(first->argv[0]))

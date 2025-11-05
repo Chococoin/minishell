@@ -68,6 +68,15 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_pipe_ctx
+{
+	t_cmd	*cmd;
+	char	**envp;
+	int		**pipes;
+	int		cmd_i;
+	int		n_cmds;
+}	t_pipe_ctx;
+
 int		is_builtin(char *cmd);
 int		exec_builtin(char **args);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -92,5 +101,7 @@ t_cmd	*commands_from_tokens(t_token *tokens, char **error);
 void	cmd_clear(t_cmd **cmds);
 char	*find_in_path(const char *cmd, char **envp);
 int		execute_external(t_cmd *cmd, char **envp);
+int		execute_pipeline(t_cmd *first, char **envp);
+void	execute_builtin_simple(t_cmd *cmd);
 
 #endif

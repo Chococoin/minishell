@@ -14,7 +14,7 @@
 - [x] Gestire `'single quotes'` (nessuna espansione)
 - [x] Gestire `"double quotes"` (espansione di `$VAR`, `$?`)
 - [x] Riconoscere redirezioni `<`, `>`, `>>`, `<<`
-- [x] Implementare le pipe `|`
+- [x] Implementare le pipe `|` (esecuzione)
 - [x] Implementare espansione di `$VAR`
 - [x] Implementare espansione di `$?`
 - [ ] Gestire i segnali nel parser (Ctrl-C, Ctrl-D, Ctrl-\)
