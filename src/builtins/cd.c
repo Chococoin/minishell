@@ -6,17 +6,16 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:32:04 by siellage          #+#    #+#             */
-/*   Updated: 2025/11/07 09:48:48 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:56:30 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-int	runcd(t_cmdlist *cmdnode)
+void	runcd(t_cmdlist *cmdnode)
 {
 	int		arraylen;
 
-	g_core.exec_output = 0;
 	arraylen = getarraylen(cmdnode->path);
 	if (arraylen > 2)
 	{
@@ -27,7 +26,6 @@ int	runcd(t_cmdlist *cmdnode)
 		cddoublearg(cmdnode);
 	else
 		cdsinglearg();
-	return (g_core.exec_output);
 }
 
 void	cdsinglearg(void)
@@ -85,23 +83,22 @@ int	changedir(char *path)
 		deleteenv("OLDPWD");
 	if (oldpwd)
 		free(oldpwd);
+	sync_my_env();
 	changetitle();
 	return (1);
 }
 
 int	updatepwdfromexport(char *pwdname, char *pwdcontent)
 {
-	t_env	*tempenv;
 	char	*temppwd;
 
 	if (!updateenv(pwdname, pwdcontent))
 	{
-		tempenv = g_core.env_table;
 		temppwd = NULL;
 		ownstrjoin(&temppwd, pwdname);
 		straddchar(&temppwd, '=');
 		ownstrjoin(&temppwd, pwdcontent);
-		add_newenv(&tempenv, temppwd);
+		addnewenv(&g_core.env_table, temppwd);
 		free(temppwd);
 		return (0);
 	}

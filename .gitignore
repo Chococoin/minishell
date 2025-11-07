@@ -1,2 +1,3 @@
-*.ominishell
+*.o
+minishell
 obj/

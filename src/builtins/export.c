@@ -27,6 +27,7 @@ int	runexport(t_cmdlist *cmdnode)
 		temppath = cmdnode->path;
 		while (*(++temppath))
 			doubleexportarg(*temppath);
+		sync_my_env();
 	}
 	else
 		singleexportarg(cmdnode);
@@ -59,10 +60,9 @@ void	doubleexportarg(char *envcmd)
 {
 	char	*arg;
 	int		isequal;
-	t_env	*env;
 	char	*tempenvname;
 
-	if (!env_arg_control(envcmd))
+	if (!envargcontrol(envcmd))
 		return ;
 	tempenvname = getenvname(envcmd);
 	arg = envcmd + ft_strlen(tempenvname);
@@ -74,8 +74,7 @@ void	doubleexportarg(char *envcmd)
 		free(tempenvname);
 		return ;
 	}
-	env = g_core.env_table;
-	add_newenv(&env, envcmd);
+	addnewenv(&g_core.env_table, envcmd);
 	if (!isequal)
 		updateenv(envcmd, NULL);
 	free(tempenvname);

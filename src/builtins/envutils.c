@@ -5,78 +5,103 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 13:06:23 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:35:54 by glugo-mu         ###   ########.fr       */
+/*   Created: 2025/10/16 11:23:23 by siellage          #+#    #+#             */
+/*   Updated: 2025/11/07 11:00:40 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-char	*getenvname(char *content)
+int	getenvlen(void)
 {
-	int		envnamelen;
-	char	*name;
-	char	*tempname;
+	t_env	*envlist;
+	int		count;
 
-	envnamelen = getenvnamecount(content);
-	if (!envnamelen)
-		return (NULL);
-	name = (char *)malloc(sizeof(char) * (envnamelen + 1));
-	tempname = name;
-	while (content && *content && *content != '=')
-		*(tempname++) = *(content++);
-	*tempname = 0;
-	return (name);
-}
-
-int	getenvnamecount(char *env_arg)
-{
-	int	count;
-
+	envlist = g_core.env_table;
 	count = 0;
-	while (env_arg && *env_arg && *(env_arg++) != '=')
-		count++;
+	while (envlist)
+	{
+		if (envlist->content)
+			count++;
+		envlist = envlist->next;
+	}
 	return (count);
 }
 
-char	*validenv(char *env)
+char	**getenvcpy(void)
 {
-	int	flag;
+	int		envlen;
+	char	**envlist;
+	char	*tempenv;
+	t_env	*tempenvlist;
 
-	flag = 0;
-	if ((*env >= 'a' && *env <= 'z') || (*env >= 'A' && *env <= 'Z'))
-		flag = 1;
-	while (*env != ' ' && *env && *env != '=')
+	envlen = getenvlen();
+	envlist = (char **)malloc(sizeof(char *) * (envlen + 1));
+	envlist[envlen] = NULL;
+	tempenvlist = g_core.env_table;
+	while (tempenvlist)
 	{
-		if ((*env > '0' && *env < '9' && !flag)
-			|| compare_metachars(env))
-			return (NULL);
-		env++;
+		if (tempenvlist->content)
+		{
+			tempenv = NULL;
+			ownstrjoin(&tempenv, tempenvlist->env_name);
+			straddchar(&tempenv, '=');
+			ownstrjoin(&tempenv, tempenvlist->content);
+			envlist[--envlen] = tempenv;
+		}
+		tempenvlist = tempenvlist->next;
 	}
-	return (env);
+	return (envlist);
 }
 
-char	*envnamecontrol(char *env)
+void	freeenvcpy(char **envlist)
 {
-	char	*envtemp;
+	char	**tempenvlist;
 
-	if (!env || *env == ' ' || *env == '=')
-		return (NULL);
-	envtemp = env;
-	envtemp = validenv(envtemp);
-	if (!envtemp || (*envtemp != '=' && *envtemp))
-		return (NULL);
-	if (*envtemp == '=')
-		return (++envtemp);
+	tempenvlist = envlist;
+	while (*tempenvlist)
+		free(*(tempenvlist++));
+	free(envlist);
+}
+
+void	fillenvs(char **env)
+{
+	while (env && *env)
+		addnewenv(&g_core.env_table, *(env++));
+}
+
+
+t_env	*addnewenv(t_env **envtable, char *env)
+{
+	t_env	*lastnode;
+	char	*content;
+
+	if (!*envtable)
+	{
+		*envtable = (t_env *)malloc(sizeof(t_env));
+		lastnode = *envtable;
+	}
 	else
-		return (envtemp);
+	{
+		lastnode = *envtable;
+		while (lastnode->next)
+			lastnode = lastnode->next;
+		lastnode->next = (t_env *)malloc(sizeof(t_env));
+		lastnode = lastnode->next;
+	}
+	lastnode->env_name = getenvname(env);
+	content = env + ft_strlen(lastnode->env_name);
+	if (*content == '=' && *(content + 1))
+		lastnode->content = ft_strdup(content + 1);
+	else
+		lastnode->content = NULL;
+	lastnode->next = NULL;
+	return (lastnode);
 }
 
-int	envargcontrol(char *env)
+void	sync_my_env(void)
 {
-	if (envnamecontrol(env))
-		return (1);
-	print_error("-bash: export: `", env, "': not a valid identifier\n");
-	g_core.exec_output = 1;
-	return (0);
+	if (g_core.my_env)
+		freeenvcpy(g_core.my_env);
+	g_core.my_env = getenvcpy();
 }

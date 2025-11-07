@@ -105,9 +105,10 @@ int	main(int argc, char **argv, char **envp)
 	if (!my_env)
 		return (1);
 	init_global_env(my_env);
+	g_core.my_env = my_env;
 	setup_signals();
-	while (process_loop(my_env, &exit_status))
+	while (process_loop(g_core.my_env, &exit_status))
 		;
-	free_env(my_env);
+	free_env(g_core.my_env);
 	return (0);
 }

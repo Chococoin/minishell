@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 10:51:30 by siellage          #+#    #+#             */
-/*   Updated: 2025/11/07 10:53:29 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:55:39 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,22 @@ int	isbuiltin(char *cmd)
 	return (0);
 }
 
-int	runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd, int fd_index)
+void	runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd, int fd_index)
 {
-	int	status;
-
-	status = 0;
 	if (fd)
 		createdup(cmdnode, fd, fd_index);
 	if (builtin == ECHO)
-		status = runecho(cmdnode);
+		runecho(cmdnode);
 	else if (builtin == CD)
-		status = runcd(cmdnode);
+		runcd(cmdnode);
 	else if (builtin == PWD)
-		status = runpwd(cmdnode);
+		runpwd(cmdnode);
 	else if (builtin == EXPORT)
-		status = runexport(cmdnode);
+		runexport(cmdnode);
 	else if (builtin == UNSET)
-		status = rununset(cmdnode);
+		rununset(cmdnode);
 	else if (builtin == ENV)
-		status = runenv(cmdnode);
+		runenv(cmdnode);
 	else if (builtin == EXIT)
-		status = runexit(cmdnode);
-	return (status);
+		runexit(cmdnode);
 }

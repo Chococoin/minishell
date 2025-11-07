@@ -36,7 +36,7 @@ static int	run_builtin_cmd(t_cmd *cmd)
 	{
 		builtin_type = isbuiltin(cmd->argv[0]);
 		if (builtin_type)
-			status = runbuiltin(cmdlist, builtin_type, NULL, -1);
+			runbuiltin(cmdlist, builtin_type, NULL, -1);
 		free_cmdlist_adapter(cmdlist);
 	}
 	return (status);

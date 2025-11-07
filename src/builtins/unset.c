@@ -6,25 +6,24 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:34:23 by siellage          #+#    #+#             */
-/*   Updated: 2025/11/07 09:48:09 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:11:53 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-int	rununset(t_cmdlist *cmdnode)
+void	rununset(t_cmdlist *cmdnode)
 {
 	char	**tempname;
-	int		array_len;
+	int		arraylen;
 
-	g_core.exec_output = 0;
-	array_len = get_array_len(cmdnode->path);
-	if (array_len > 1)
+	arraylen = getarraylen(cmdnode->path);
+	if (arraylen > 1)
 	{
 		tempname = cmdnode->path;
 		while (*(++tempname))
 		{
-			if (!env_arg_control(*tempname))
+			if (!envargcontrol(*tempname))
 			{
 				print_error("-bash: unset: `", *tempname,
 					"': not a valid identifier\n");
@@ -34,14 +33,14 @@ int	rununset(t_cmdlist *cmdnode)
 			else
 				deleteenv(*tempname);
 		}
+		sync_my_env();
 	}
-	return (g_core.exec_output);
 }
 
 void	deleteenv(char *name)
 {
 	t_env	*env;
-	t_env	*temp_env;
+	t_env	*tempenv;
 
 	env = g_core.env_table;
 	while (env)
@@ -54,11 +53,11 @@ void	deleteenv(char *name)
 			if (g_core.env_table == env)
 				g_core.env_table = g_core.env_table->next;
 			else
-				temp_env->next = env->next;
+				tempenv->next = env->next;
 			free(env);
 			break ;
 		}
-		temp_env = env;
+		tempenv = env;
 		env = env->next;
 	}
 }

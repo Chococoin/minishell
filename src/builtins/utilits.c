@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:32:40 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:55:24 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:12:58 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,18 @@ void	ownstrjoin(char **dst, char *src)
 	char	*holderptr;
 	char	*holderdst;
 	size_t	len;
+	size_t	dst_len;
+	size_t	src_len;
 
 	if (!*dst && !src)
 		return ;
-	len = 0;
+	dst_len = 0;
 	if (*dst)
-		len += ft_strlen(*dst);
+		dst_len = ft_strlen(*dst);
+	src_len = 0;
 	if (src)
-		len += ft_strlen(src);
+		src_len = ft_strlen(src);
+	len = dst_len + src_len;
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	ptr[len] = 0;
 	holderptr = ptr;
@@ -88,6 +92,26 @@ void	ownstrjoin(char **dst, char *src)
 		*(holderptr++) = *(holderdst++);
 	while (src && *src)
 		*(holderptr++) = *(src++);
+	if (*dst)
+		free(*dst);
+	*dst = ptr;
+}
+
+void	straddchar(char **dst, char c)
+{
+	char	*ptr;
+	char	*holderptr;
+	char	*holderdst;
+	int		len;
+
+	len = ft_strlen(*dst) + 1;
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	holderptr = ptr;
+	holderdst = *dst;
+	while (holderdst && *holderdst)
+		*(holderptr++) = *(holderdst++);
+	*(holderptr++) = c;
+	*(holderptr++) = 0;
 	if (*dst)
 		free(*dst);
 	*dst = ptr;

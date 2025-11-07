@@ -6,20 +6,20 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:33:10 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:31:40 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:57:38 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-int	runecho(t_cmdlist *cmdnode)
+void	runecho(t_cmdlist *cmdnode)
 {
 	char	**path;
 	int		isn;
 
 	isn = 0;
 	path = &cmdnode->path[1];
-	while (*path && str_compare(*path, "-n"))
+	if (*path && str_compare(*path, "-n"))
 	{
 		isn = 1;
 		path++;
@@ -33,5 +33,4 @@ int	runecho(t_cmdlist *cmdnode)
 	}
 	if (!isn)
 		write(cmdnode->outfile, "\n", 1);
-	return (0);
 }

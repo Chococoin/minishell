@@ -6,13 +6,13 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:33:28 by siellage          #+#    #+#             */
-/*   Updated: 2025/11/07 09:48:53 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:58:12 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-int	runenv(t_cmdlist *cmdnode)
+void	runenv(t_cmdlist *cmdnode)
 {
 	t_env	*tempenv;
 
@@ -30,5 +30,4 @@ int	runenv(t_cmdlist *cmdnode)
 		}
 		tempenv = tempenv->next;
 	}
-	return (0);
 }

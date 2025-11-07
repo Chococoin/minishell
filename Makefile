@@ -18,7 +18,8 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/adapters/cmd_adapter.c src/adapters/env_adapter.c \
 		src/adapters/builtin_adapter.c \
 		src/execution/executor.c src/execution/path_resolver.c \
-		src/execution/pipeline.c src/execution/pipe_utils.c \
+		src/execution/pipeline.c src/execution/pipe.c \
+		src/execution/pipe_utils.c \
 		src/execution/redirections.c \
 		src/signals/signals.c \
 		src/parsing/split_input.c src/parsing/command_builder.c \
@@ -27,6 +28,7 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/parsing/expand_utils.c src/parsing/validate.c \
 		src/builtins/builtin.c src/builtins/cd.c src/builtins/createdup.c \
 		src/builtins/echo.c src/builtins/env.c src/builtins/envutils.c \
+		src/builtins/envutils2.c \
 		src/builtins/exit.c src/builtins/export.c \
 		src/builtins/pwd.c src/builtins/unset.c src/builtins/utilits.c \
 		src/builtins/utilits2.c src/builtins/builtins_utils.c \
