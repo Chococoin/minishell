@@ -12,7 +12,7 @@
 
 #include "minishell2.h"
 
-void	runecho(t_cmdlist *cmdnode)
+int	runecho(t_cmdlist *cmdnode)
 {
 	char	**path;
 	int		isn;
@@ -33,4 +33,5 @@ void	runecho(t_cmdlist *cmdnode)
 	}
 	if (!isn)
 		write(cmdnode->outfile, "\n", 1);
+	return (0);
 }

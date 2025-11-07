@@ -6,17 +6,18 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:34:23 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:24:32 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 09:48:09 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	rununset(t_cmdlist *cmdnode)
+int	rununset(t_cmdlist *cmdnode)
 {
 	char	**tempname;
 	int		array_len;
 
+	g_core.exec_output = 0;
 	array_len = get_array_len(cmdnode->path);
 	if (array_len > 1)
 	{
@@ -34,6 +35,7 @@ void	rununset(t_cmdlist *cmdnode)
 				deleteenv(*tempname);
 		}
 	}
+	return (g_core.exec_output);
 }
 
 void	deleteenv(char *name)

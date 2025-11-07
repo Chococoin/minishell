@@ -39,9 +39,9 @@ static t_token	*process_input(char *input, char ***parts_out, char **orig_out)
 	return (tokens);
 }
 
-static void	execute_builtin(t_cmd *cmd)
+static int	execute_builtin(t_cmd *cmd)
 {
-	execute_builtin_simple(cmd);
+	return (execute_builtin_simple(cmd));
 }
 
 static int	execute_cmd(t_cmd *first, char **my_env, char *original)
@@ -55,7 +55,7 @@ static int	execute_cmd(t_cmd *first, char **my_env, char *original)
 	else if (first->argv && first->argv[0])
 	{
 		if (isbuiltin(first->argv[0]))
-			execute_builtin(first);
+			status = execute_builtin(first);
 		else
 			status = execute_external(first, my_env);
 	}

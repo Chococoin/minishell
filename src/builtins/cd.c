@@ -6,16 +6,17 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:32:04 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:28:10 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 09:48:48 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell2.h"
 
-void	runcd(t_cmdlist *cmdnode)
+int	runcd(t_cmdlist *cmdnode)
 {
 	int		arraylen;
 
+	g_core.exec_output = 0;
 	arraylen = getarraylen(cmdnode->path);
 	if (arraylen > 2)
 	{
@@ -26,6 +27,7 @@ void	runcd(t_cmdlist *cmdnode)
 		cddoublearg(cmdnode);
 	else
 		cdsinglearg();
+	return (g_core.exec_output);
 }
 
 void	cdsinglearg(void)

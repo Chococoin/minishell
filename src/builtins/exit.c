@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:33:47 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:35:47 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:53:57 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	isallnumeric(char *text)
 	return (1);
 }
 
-void	runexit(t_cmdlist *cmdnode)
+int	runexit(t_cmdlist *cmdnode)
 {
 	int	arraylen;
 
@@ -32,7 +32,7 @@ void	runexit(t_cmdlist *cmdnode)
 	{
 		print_error("bash: exit: too many arguments\n", NULL, NULL);
 		g_core.exec_output = 1;
-		return ;
+		return (1);
 	}
 	else if (arraylen == 1)
 	{

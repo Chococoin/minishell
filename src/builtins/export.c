@@ -6,7 +6,7 @@
 /*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:40:50 by siellage          #+#    #+#             */
-/*   Updated: 2025/10/31 16:50:28 by glugo-mu         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:49:20 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void	singleexportarg(t_cmdlist *cmdnode);
 void	doubleexportarg(char *envcmd);
 
-void	runexport(t_cmdlist *cmdnode)
+int	runexport(t_cmdlist *cmdnode)
 {
 	int		arraylen;
 	char	**temppath;
 
+	g_core.exec_output = 0;
 	arraylen = getarraylen(cmdnode->path);
 	if (arraylen > 1)
 	{
@@ -29,6 +30,7 @@ void	runexport(t_cmdlist *cmdnode)
 	}
 	else
 		singleexportarg(cmdnode);
+	return (g_core.exec_output);
 }
 
 void	singleexportarg(t_cmdlist *cmdnode)

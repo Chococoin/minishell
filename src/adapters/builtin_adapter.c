@@ -24,33 +24,38 @@ static void	restore_fds(int saved_stdin, int saved_stdout)
 	close(saved_stdout);
 }
 
-static void	run_builtin_cmd(t_cmd *cmd)
+static int	run_builtin_cmd(t_cmd *cmd)
 {
 	t_cmdlist	*cmdlist;
 	int			builtin_type;
+	int			status;
 
+	status = 0;
 	cmdlist = cmd_to_cmdlist(cmd);
 	if (cmdlist)
 	{
 		builtin_type = isbuiltin(cmd->argv[0]);
 		if (builtin_type)
-			runbuiltin(cmdlist, builtin_type, NULL, -1);
+			status = runbuiltin(cmdlist, builtin_type, NULL, -1);
 		free_cmdlist_adapter(cmdlist);
 	}
+	return (status);
 }
 
-void	execute_builtin_simple(t_cmd *cmd)
+int	execute_builtin_simple(t_cmd *cmd)
 {
 	int	saved_stdin;
 	int	saved_stdout;
+	int	status;
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	if (cmd->redirs && apply_redirections(cmd->redirs) < 0)
 	{
 		restore_fds(saved_stdin, saved_stdout);
-		return ;
+		return (1);
 	}
-	run_builtin_cmd(cmd);
+	status = run_builtin_cmd(cmd);
 	restore_fds(saved_stdin, saved_stdout);
+	return (status);
 }

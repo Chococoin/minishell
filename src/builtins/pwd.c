@@ -12,12 +12,15 @@
 
 #include "minishell2.h"
 
-void	runpwd(t_cmdlist *cmdnode)
+int	runpwd(t_cmdlist *cmdnode)
 {
 	char	cwd[256];
 	char	*pwd;
 
 	pwd = getcwd(cwd, 256);
+	if (!pwd)
+		return (1);
 	write(cmdnode->outfile, pwd, ft_strlen(pwd));
 	write(cmdnode->outfile, "\n", 1);
+	return (0);
 }
