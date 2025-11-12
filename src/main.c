@@ -13,6 +13,7 @@
 #include "minishell.h"
 #include "minishell2.h"
 
+t_core		g_core;
 t_cmdlist	*cmd_to_cmdlist(t_cmd *cmd);
 void		free_cmdlist_adapter(t_cmdlist *cmdlist);
 

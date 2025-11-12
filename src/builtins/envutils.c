@@ -70,7 +70,6 @@ void	fillenvs(char **env)
 		addnewenv(&g_core.env_table, *(env++));
 }
 
-
 t_env	*addnewenv(t_env **envtable, char *env)
 {
 	t_env	*lastnode;
@@ -97,11 +96,4 @@ t_env	*addnewenv(t_env **envtable, char *env)
 		lastnode->content = NULL;
 	lastnode->next = NULL;
 	return (lastnode);
-}
-
-void	sync_my_env(void)
-{
-	if (g_core.my_env)
-		freeenvcpy(g_core.my_env);
-	g_core.my_env = getenvcpy();
 }

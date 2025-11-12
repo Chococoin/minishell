@@ -21,15 +21,15 @@
 # include <readline/history.h>
 # include "libft.h"
 
-#define ECHO 1
-#define CD 2
-#define PWD 3
-#define EXPORT 4
-#define UNSET 5
-#define ENV 6
-#define EXIT 7
-#define HERADOC -2
-#define SSTDERR 2
+# define ECHO 1
+# define CD 2
+# define PWD 3
+# define EXPORT 4
+# define UNSET 5
+# define ENV 6
+# define EXIT 7
+# define HERADOC -2
+# define SSTDERR 2
 
 typedef struct s_filelist
 {
@@ -45,7 +45,6 @@ typedef struct s_lexlist
 	char				*content;
 	struct s_lexlist	*next;
 }	t_lexlist;
-
 
 typedef struct s_title
 {
@@ -88,89 +87,57 @@ typedef struct s_core
 	t_title		title;
 }	t_core;
 
-t_core g_core;
+extern t_core	g_core;
 
-
-int	isbuiltin(char *cmd);
-void	runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd, int fd_index);
-void	runecho(t_cmdlist *cmdnode);
-void	runenv(t_cmdlist *cmdnode);
-int	updateenv(char *envname, char *newarg);
-void	runpwd(t_cmdlist *cmdnode);
-
-//cd
-void	runcd(t_cmdlist *cmdnode);
-void	cdsinglearg(void);
-void	cddoublearg(t_cmdlist *cmd_node);
-int	changedir(char *path);
-int	updatepwdfromexport(char *pwd_name, char *pwd_content);
-
-// unset
-void	rununset(t_cmdlist *cmdnode);
-void	deleteenv(char *name);
-
-
-void	createdup(t_cmdlist *cmd_list, int *fd, int fdindex);
-
-//util
-int	getarraylen(char **array);
-void	print_error(char *ptr1, char *ptr2, char *ptr3);
-void	changetitle(void);
-int	updateenv(char *envname, char *newarg);
-void	ownstrjoin(char **dst, char *src);
-void	straddchar(char **dst, char c);
-int	str_compare(char *s1, char *s2);
-int	compare_metachars(char *str);
-
-
-//exit
-int	isallnumeric(char *text);
-void	runexit(t_cmdlist *cmdnode);
-
-// export
-int	runexport(t_cmdlist *cmdnode);
-void	singleexportarg(t_cmdlist *cmdnode);
-void	doubleexportarg(char *envcmd);
-int	changeenv(char *envname, char *arg, int isequal);
-
-// envutils
-int	getenvlen(void);
-char	**getenvcpy(void);
-void	freeenvcpy(char **envlist);
-void	fillenvs(char **env);
-t_env	*addnewenv(t_env **envtable, char *env);
-void	sync_my_env(void);
-
-//envutils2
-
-char	*getenvname(char *content);
-int	getenvnamecount(char *envarg);
-char	*validenv(char *env);
-char	*envnamecontrol(char *env);
-int	envargcontrol(char *env);
-
-//execve
-
-void	runexecve(t_cmdlist *cmdnode, int *fd, int fdindex);
-
-//execcommand 
-void	execcommand(t_cmdlist *cmdnode, int *fd, int fdindex);
-char	*getcmd(char *cmd);
-
-
-// pipe
-int	*createpipe(void);
-void	clearpipe(int *fd);
-void	switchpipe(int **fd);
-
-//executer
-void	runmultiplecommand(t_cmdlist *cmdlist);
-void	runsinglecommand(t_cmdlist *cmdlist, int *fd);
-void	executer(void);
-
-// process
-
-void	runprocess(t_cmdlist *cmdlist, int *fd, int fdindex);
-void	waitall(void);
+int				isbuiltin(char *cmd);
+void			runbuiltin(t_cmdlist *cmdnode, int builtin, int *fd,
+					int fd_index);
+void			runecho(t_cmdlist *cmdnode);
+void			runenv(t_cmdlist *cmdnode);
+int				updateenv(char *envname, char *newarg);
+void			runpwd(t_cmdlist *cmdnode);
+void			runcd(t_cmdlist *cmdnode);
+void			cdsinglearg(void);
+void			cddoublearg(t_cmdlist *cmd_node);
+int				changedir(char *path);
+int				updatepwdfromexport(char *pwd_name, char *pwd_content);
+void			rununset(t_cmdlist *cmdnode);
+void			deleteenv(char *name);
+void			createdup(t_cmdlist *cmd_list, int *fd, int fdindex);
+int				getarraylen(char **array);
+void			print_error(char *ptr1, char *ptr2, char *ptr3);
+void			changetitle(void);
+void			ownstrjoin(char **dst, char *src);
+void			straddchar(char **dst, char c);
+int				str_compare(char *s1, char *s2);
+int				compare_metachars(char *str);
+int				isallnumeric(char *text);
+void			runexit(t_cmdlist *cmdnode);
+int				runexport(t_cmdlist *cmdnode);
+void			singleexportarg(t_cmdlist *cmdnode);
+void			doubleexportarg(char *envcmd);
+int				changeenv(char *envname, char *arg, int isequal);
+int				getenvlen(void);
+char			**getenvcpy(void);
+void			freeenvcpy(char **envlist);
+void			fillenvs(char **env);
+t_env			*addnewenv(t_env **envtable, char *env);
+void			sync_my_env(void);
+char			*getenvname(char *content);
+int				getenvnamecount(char *envarg);
+char			*validenv(char *env);
+char			*envnamecontrol(char *env);
+int				envargcontrol(char *env);
+void			runexecve(t_cmdlist *cmdnode, int *fd, int fdindex);
+void			execcommand(t_cmdlist *cmdnode, int *fd, int fdindex);
+char			*getcmd(char *cmd);
+int				*createpipe(void);
+void			clearpipe(int *fd);
+void			switchpipe(int **fd);
+void			runmultiplecommand(t_cmdlist *cmdlist);
+void			runsinglecommand(t_cmdlist *cmdlist, int *fd);
+void			executer(void);
+void			runprocess(t_cmdlist *cmdlist, int *fd, int fdindex);
+void			waitall(void);
 
 #endif

@@ -13,7 +13,8 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-INCLUDES = -I includes
+INCLUDES = -I includes -I /opt/homebrew/opt/readline/include
+LDFLAGS = -L /opt/homebrew/opt/readline/lib
 SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/adapters/cmd_adapter.c src/adapters/env_adapter.c \
 		src/adapters/builtin_adapter.c \
@@ -28,7 +29,7 @@ SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/parsing/expand_utils.c src/parsing/validate.c \
 		src/builtins/builtin.c src/builtins/cd.c src/builtins/createdup.c \
 		src/builtins/echo.c src/builtins/env.c src/builtins/envutils.c \
-		src/builtins/envutils2.c \
+		src/builtins/envutils2.c src/builtins/envutils3.c \
 		src/builtins/exit.c src/builtins/export.c \
 		src/builtins/pwd.c src/builtins/unset.c src/builtins/utilits.c \
 		src/builtins/utilits2.c src/builtins/builtins_utils.c \
@@ -59,7 +60,7 @@ all: $(OBJDIR) $(NAME)
 	@echo "        ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\033[0m"
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -lreadline -o $(NAME) $(OBJ)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)

@@ -14,11 +14,14 @@
 #include <signal.h>
 #include <readline/readline.h>
 
+void	rl_replace_line(const char *text, int clear_undo);
+
 static void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
