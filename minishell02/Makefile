@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+         #
+#    By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 18:10:13 by glugo-mu          #+#    #+#              #
-#    Updated: 2026/02/13 16:45:37 by tkurukul         ###   ########.fr        #
+#    Updated: 2026/02/14 21:23:05 by glugo-mu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,17 +82,8 @@ fclean: clean
 	@if [ -d "$(OBJDIR)" ]; then find "$(OBJDIR)" -mindepth 1 -delete; fi
 
 re: fclean all
-
-# Debug / tooling targets
-# - debug: recompile with -g -O0 for readable backtraces
-# - gdb: launch gdb with the debug binary
-# - asan: compile with AddressSanitizer and UBSan
-# - valgrind: run valgrind on the debug binary
-# - enable-coredump: instructions to enable core dumps in the current shell
-
 debug: CFLAGS += -g -O0
 debug: re
-
 gdb: debug
 	@echo "Starting gdb: run, then when it crashes use 'bt' to get backtrace"
 	@gdb --args ./$(NAME)

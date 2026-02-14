@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siellage <siellage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 15:40:50 by siellage          #+#    #+#             */
-/*   Updated: 2026/02/13 15:12:01 by siellage         ###   ########.fr       */
+/*   Updated: 2026/02/14 21:38:24 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	runexit(t_core *core, t_cmdlist *cmdnode)
 		{
 			print_error("-bash: exit: ", cmdnode->path[1],
 				": numeric argument required\n");
-				cleanup_and_exit(core, cmdnode, 2);
+			cleanup_and_exit(core, cmdnode, 2);
 		}
 		print_error("exit\n-bash: exit: too many arguments\n", NULL, NULL);
 		core->exec_output = 1;

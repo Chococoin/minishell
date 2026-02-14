@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: glugo-mu <glugo-mu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:59:21 by glugo-mu          #+#    #+#             */
-/*   Updated: 2026/02/13 17:01:02 by tkurukul         ###   ########.fr       */
+/*   Updated: 2026/02/14 21:37:15 by glugo-mu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,8 @@ void			free_core(t_core *core);
 
 char			*join_str_free(char *res, char *val);
 char			*join_char_free(char *res, char c);
-char			*handle_dollar(const char *str, size_t *i, char *res, t_expand_ctx *ctx);
+char			*handle_dollar(const char *str, size_t *i,
+					char *res, t_expand_ctx *ctx);
 int				is_builtin(char *cmd);
 int				exec_builtin(char **args);
 int				ft_strcmp(const char *s1, const char *s2);
@@ -245,7 +246,8 @@ int				token_set_error(char **error, const char *token);
 void			expand_tokens(t_token *tokens, char **envp, int exit_status);
 char			*get_var_value(char *var_name, char **envp, int exit_status);
 char			*extract_var_name(const char *str, size_t *len);
-void			process_word_token(t_token *token, char **envp, int exit_status);
+void			process_word_token(t_token *token, char **envp,
+					int exit_status);
 t_cmd			*commands_from_tokens(t_token *tokens, char **error);
 void			cmd_clear(t_cmd **cmds);
 char			*find_in_path(const char *cmd, char **envp);
