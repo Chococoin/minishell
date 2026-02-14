@@ -34,8 +34,10 @@ void	close_pipes(int **pipes, int n_pipes)
 	{
 		if (pipes[i])
 		{
-			close(pipes[i][0]);
-			close(pipes[i][1]);
+			if (pipes[i][0] >= 0)
+				close(pipes[i][0]);
+			if (pipes[i][1] >= 0)
+				close(pipes[i][1]);
 			free(pipes[i]);
 		}
 		i++;
@@ -76,6 +78,8 @@ void	close_all_pipes(int **pipes, int n_pipes)
 	{
 		close(pipes[j][0]);
 		close(pipes[j][1]);
+		pipes[j][0] = -1;
+		pipes[j][1] = -1;
 		j++;
 	}
 }

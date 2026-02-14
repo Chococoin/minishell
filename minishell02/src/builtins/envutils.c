@@ -92,7 +92,7 @@ t_env	*addnewenv(t_env **envtable, char *env)
 	}
 	node->env_name = getenvname(env);
 	content = env + ft_strlen(node->env_name);
-	if (*content == '=' && *(content + 1))
+	if (*content == '=')
 		node->content = ft_strdup(content + 1);
 	else
 		node->content = NULL;
