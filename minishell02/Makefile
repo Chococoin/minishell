@@ -13,8 +13,8 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-INCLUDES = -I includes -I /opt/homebrew/opt/readline/include
-LDFLAGS = -L /opt/homebrew/opt/readline/lib
+INCLUDES = -I includes
+LDFLAGS =
 SRC =	src/main.c src/env/copy_env.c src/utils/utils.c \
 		src/adapters/cmd_adapter.c src/adapters/env_adapter.c \
 		src/adapters/builtin_adapter.c \
@@ -62,7 +62,7 @@ all: $(OBJDIR) $(NAME)
 	@echo "        ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\033[0m"
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(LDFLAGS) -lreadline -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJ) -lreadline
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
